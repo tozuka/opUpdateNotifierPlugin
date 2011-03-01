@@ -1,0 +1,26 @@
+opUpdateNotifierPlugin の使い方
+
+■更新通知のトグルスイッチを配置したいテンプレートに：
+
+  ...
+
+  <?php use_helper('opUpdateNotifier') ?>
+  <?php echo op_update_notifier_register_link('@communityTopic_show?id='.$communityTopic->getId()) ?>
+  <br>
+
+  ...
+
+■更新通知をしたいアクション（編集された、コメント付いた、etc.）に：
+
+  ...
+
+  $this->form->save();
+
+  UpdateNotifierUtil::notifyUpdateForRoute(
+    '@communityEvent_show?id='.$this->communityEvent->getId(),
+    'コミュニティイベント '.$this->communityEvent->name,
+    $this->form->getObject()->body
+  );
+
+  ...
+

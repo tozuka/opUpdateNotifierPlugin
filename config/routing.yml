@@ -1,0 +1,8 @@
+register_updateNotifier:
+  url:  /updateNotifier/register/:route
+  param: { module: updateNotifier, action: register }
+
+unregister_updateNotifier:
+  url:  /updateNotifier/unregister/:route
+  param: { module: updateNotifier, action: unregister }
+

@@ -1,0 +1,50 @@
+pc:
+  updateNotification:
+    caption: "Update Notification"
+    configurable: false
+    sample:
+      en:
+        - "[{{ op_config.sns_name }}] {{ caption }} is updated"
+        - |
+          {{ caption }} seems to be updated (or added a comment)!
+          {% app_url_for('pc_frontend', route, true) %}
+
+          {{ text }}
+      ja_JP:
+        - "[{{ op_config.sns_name }}] {{ caption }} が更新されました"
+        - |
+          {{ caption }} が更新されたか、コメントが追加されています。
+          {% app_url_for('pc_frontend', route, true) %}
+
+          {{ text }}
+    variables:
+      "op_config.sns_name": "SNS 名"
+      route: "ルーティング"
+      caption: "見出し"
+      text: "テキスト"
+
+mobile:
+  updateNotification:
+    caption: "Update Notification"
+    configurable: false
+    sample: 
+      en:
+        - "[{{ op_config.sns_name }}] {{ caption }} is updated"
+        - |
+          {{ caption }} seems to be updated (or added a comment)!
+          {% app_url_for('mobile_frontend', route, true) %}
+
+          {{ text }}
+      ja_JP:
+        - "[{{ op_config.sns_name }}] {{ caption }} が更新されました"
+        - |
+          {{ caption }} が更新されたか、コメントが追加されています。
+          {% app_url_for('mobile_frontend', route, true) %}
+
+          {{ text }}
+    variables:
+      "op_config.sns_name": "SNS 名"
+      route: "ルーティング"
+      caption: "見出し"
+      text: "テキスト"
+
