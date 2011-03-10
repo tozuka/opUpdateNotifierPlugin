@@ -1,0 +1,37 @@
+--- a/plugins/opDiaryPlugin/apps/pc_frontend/modules/diary/templates/showSuccess.php	2011-03-11 02:58:34.000000000 +0900
++++ b/plugins/opDiaryPlugin/apps/pc_frontend/modules/diary/templates/showSuccess.php	2011-02-21 21:45:04.000000000 +0900
+@@ -38,6 +38,10 @@
+ </div>
+ </dd>
+ </dl>
++
++<?php use_helper('opUpdateNotifier') ?>
++<?php echo op_update_notifier_register_link('@diary_show?id='.$diary->id) ?>
++
+ <?php if ($diary->member_id === $sf_user->getMemberId()): ?>
+ <div class="operation">
+ <form action="<?php echo url_for('diary_edit', $diary) ?>">
+--- a/plugins/opCommunityTopicPlugin/apps/pc_frontend/modules/communityEvent/templates/showSuccess.php	2011-03-11 03:02:36.000000000 +0900
++++ b/plugins/opCommunityTopicPlugin/apps/pc_frontend/modules/communityEvent/templates/showSuccess.php	2011-02-21 22:03:41.000000000 +0900
+@@ -44,6 +44,9 @@
+ op_include_parts('listBox', 'communityEvent', $options);
+ ?>
+ 
++<?php use_helper('opUpdateNotifier') ?>
++<?php echo op_update_notifier_register_link('@communityEvent_show?id='.$communityEvent->getId()) ?>
++<br>
+ 
+ <?php if ($communityEvent->isEditable($sf_user->getMemberId())): ?>
+ <div class="operation">
+--- a/plugins/opCommunityTopicPlugin/apps/pc_frontend/modules/communityEvent/templates/showSuccess.php	2011-03-11 03:02:36.000000000 +0900
++++ b/plugins/opCommunityTopicPlugin/apps/pc_frontend/modules/communityEvent/templates/showSuccess.php	2011-02-21 22:03:41.000000000 +0900
+@@ -44,6 +44,9 @@
+ op_include_parts('listBox', 'communityEvent', $options);
+ ?>
+ 
++<?php use_helper('opUpdateNotifier') ?>
++<?php echo op_update_notifier_register_link('@communityEvent_show?id='.$communityEvent->getId()) ?>
++<br>
+ 
+ <?php if ($communityEvent->isEditable($sf_user->getMemberId())): ?>
+ <div class="operation">

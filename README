@@ -1,0 +1,13 @@
+opUpdateNotifierPlugin
+  登録した日記やトピックの更新を通知する
+  by tozuka@tejimaya.com
+
+■opDiaryPlugin, opCommunityTopicPluginのフォーム表示部分下に更新通知のトグルスイッチを追加するパッチ
+
+$ patch -p1 < plugins/opUpdateNotifierPlugin/insert_toggleswitches.patch
+
+■sfFormObject へのパッチが必要です
+OpenPNE のルートディレクトリにて
+$ patch -p0 < plugins/opUpdateNotifierPlugin/form-post_save.patch
+を実行してください。
+opIdCallPluginなどの導入で既に同等のパッチが適用済みの場合は不要です。

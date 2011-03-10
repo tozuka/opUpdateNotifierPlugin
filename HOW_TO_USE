@@ -10,17 +10,3 @@ opUpdateNotifierPlugin の使い方
 
   ...
 
-■更新通知をしたいアクション（編集された、コメント付いた、etc.）に：
-
-  ...
-
-  $this->form->save();
-
-  UpdateNotifierUtil::notifyUpdateForRoute(
-    '@communityEvent_show?id='.$this->communityEvent->getId(),
-    'コミュニティイベント '.$this->communityEvent->name,
-    $this->form->getObject()->body
-  );
-
-  ...
-

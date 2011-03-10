@@ -4,23 +4,23 @@ pc:
     configurable: false
     sample:
       en:
-        - "[{{ op_config.sns_name }}] {{ caption }} is updated"
+        - "[{{ op_config.sns_name }}] {{ place }} is updated"
         - |
-          {{ caption }} seems to be updated (or added a comment)!
+          {{ place }} seems to be updated (or added a comment)!
           {% app_url_for('pc_frontend', route, true) %}
 
           {{ text }}
       ja_JP:
-        - "[{{ op_config.sns_name }}] {{ caption }} が更新されました"
+        - "[{{ op_config.sns_name }}] {{ place }} が更新されました"
         - |
-          {{ caption }} が更新されたか、コメントが追加されています。
+          {{ place }} が更新されたか、コメントが追加されています。
           {% app_url_for('pc_frontend', route, true) %}
 
           {{ text }}
     variables:
       "op_config.sns_name": "SNS 名"
       route: "ルーティング"
-      caption: "見出し"
+      place: "場所"
       text: "テキスト"
 
 mobile:
@@ -29,22 +29,22 @@ mobile:
     configurable: false
     sample: 
       en:
-        - "[{{ op_config.sns_name }}] {{ caption }} is updated"
+        - "[{{ op_config.sns_name }}] {{ place }} is updated"
         - |
-          {{ caption }} seems to be updated (or added a comment)!
+          {{ place }} seems to be updated (or added a comment)!
           {% app_url_for('mobile_frontend', route, true) %}
 
           {{ text }}
       ja_JP:
-        - "[{{ op_config.sns_name }}] {{ caption }} が更新されました"
+        - "[{{ op_config.sns_name }}] {{ place }} が更新されました"
         - |
-          {{ caption }} が更新されたか、コメントが追加されています。
+          {{ place }} が更新されたか、コメントが追加されています。
           {% app_url_for('mobile_frontend', route, true) %}
 
           {{ text }}
     variables:
       "op_config.sns_name": "SNS 名"
       route: "ルーティング"
-      caption: "見出し"
+      place: "場所"
       text: "テキスト"
 

@@ -92,7 +92,8 @@ class UpdateNotifierUtil {
       opConfig::get('admin_mail_address'), $params);
   }
 
-  public static function notifyUpdateForRoute($route, $caption, $text, $author = null)
+
+  public static function notify_update($text, $place, $route, $author = null)
   {
     if (is_null($author))
     {
@@ -107,10 +108,10 @@ class UpdateNotifierUtil {
     }
 
     $params = array(
-      'route' => $route,
-      'caption' => $caption,
-      'author' => $author,
       'text' => $text_,
+      'place' => $place,
+      'route' => $route,
+      'author' => $author,
     );
 
     foreach (self::getRecipientMemberIds($route) as $recipientMemberId)
@@ -119,5 +120,76 @@ class UpdateNotifierUtil {
     }
   }
 
+  // 旧API（なにもしない）
+  public static function notifyUpdateForRoute($route, $caption, $text, $author = null)
+  {
+  }
+
+  public function processFormPostSave($event)
+  {
+    $form = $event->getSubject();
+    $author = sfContext::getInstance()->getUser()->getMember()->getName();
+    $i18n = sfContext::getInstance()->getI18N();
+
+    switch (get_class($form))
+    {
+      case 'DiaryForm':
+        $diary = $form->getObject();
+
+        $text = $diary->body;
+        $place = $author.'さんの'.$i18n->__('Diary');
+        $route = '@diary_show?id='.$diary->id;
+        break;
+
+      case 'DiaryCommentForm':
+        $diaryComment = $form->getObject();
+        $diary = $diaryComment->Diary;
+
+        $text = $diaryComment->body;
+        $place = $author.'さんの'.$i18n->__('Diary');
+        $route = '@diary_show?id='.$diary->id.'&comment_count='.$diary->countDiaryComments(true);
+        break;
+
+      case 'CommunityEventForm':
+        $communityEvent = $form->getObject();
+
+        $text = $communityEvent->body;
+        $place = $i18n->__('Community Events').' '.$communityEvent->name;
+        $route = '@communityEvent_show?id='.$communityEvent->getId();
+        break;
+
+      case 'CommunityEventCommentForm':
+        $communityEventComment = $form->getObject();
+        $communityEvent = $communityEventComment->CommunityEvent;
+
+        $text = $communityEventComment->body;
+        $place = $i18n->__('Community Events').' '.$communityEvent->name;
+        $route = '@communityEvent_show?id='.$communityEvent->getId();
+        break;
+
+      case 'CommunityTopicForm':
+        $communityTopic = $form->getObject();
+
+        $text = $communityTopic->body;
+        $place = $i18n->__('Community Topics').' '.$communityTopics->name;
+        $route = '@communityTopic_show?id='.$communityTopic->getId();
+        break;
+
+      case 'CommunityTopicCommentForm':
+        $communityTopicComment = $form->getObject();
+        $communityTopic = $communityTopicComment->CommunityTopic;
+
+        $text = $communityTopicComment->body;
+        $place = $i18n->__('Community Topics').' '.$communityTopic->name;
+        $route = '@communityTopic_show?id='.$communityTopic->getId();
+        break;
+
+      default:
+        //error_log('form.post_save event from '.get_class($form).' is not supported.');
+        return;
+    } 
+
+    UpdateNotiferUtil::notify_update($text, $place, $route, $author);
+  }
 }
 
