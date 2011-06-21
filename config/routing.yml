@@ -6,3 +6,7 @@ unregister_updateNotifier:
   url:  /updateNotifier/unregister/:route
   param: { module: updateNotifier, action: unregister }
 
+updateNotifier_mylist:
+  url:  /updateNotifier
+  param: { module: updateNotifier, action: mylist }
+

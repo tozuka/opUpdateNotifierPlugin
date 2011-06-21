@@ -191,5 +191,32 @@ class UpdateNotifierUtil {
 
     UpdateNotiferUtil::notify_update($text, $place, $route, $author);
   }
+
+  public static function getTitleForRoute($route)
+  {
+    if (preg_match('/^@([A-Za-z_]+)\?id=([0-9]+)$/', $route, $matches))
+    {
+      $routename = $matches[1];
+      $id = (int)$matches[2];
+      switch ($routename)
+      {
+        case 'diary_show':
+          $diary = Doctrine::getTable('Diary')->find($id);
+          return sprintf('〈日記〉%sさん : %s', $diary->Member->getName(), $diary->getTitle());
+        case 'communityEvent_show':
+          $communityEvent = Doctrine::getTable('CommunityEvent')->find($id);
+          return sprintf('〈イベント〉%s : %s', $communityEvent->Community->getName(), $communityEvent->getName());
+        case 'communityTopic_show':
+          $communityTopic = Doctrine::getTable('CommunityTopic')->find($id);
+          return sprintf('〈トピック〉%s : %s', $communityTopic->Community->getName(), $communityTopic->getName());
+        default:
+          return sprintf('%s#%d', $routename, $id);
+      }
+    }
+    else
+    {
+    }
+    return $route;
+  }
 }
 
