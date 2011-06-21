@@ -189,7 +189,7 @@ class UpdateNotifierUtil {
         return;
     } 
 
-    UpdateNotiferUtil::notify_update($text, $place, $route, $author);
+    UpdateNotifierUtil::notify_update($text, $place, $route, $author);
   }
 
   public static function getTitleForRoute($route)
