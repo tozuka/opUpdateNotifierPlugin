@@ -8,7 +8,7 @@ function op_update_notifier_register_link($targetRoute)
   $isRegistered = UpdateNotifierUtil::isNotificationRequestRegistered($targetRoute, $recipientMemberId);
   $count = UpdateNotifierUtil::countNotificationRequestRegistrants($targetRoute);
 
-  $html = '<p align="right"><font size="-1" color="green">[更新通知('.$count.'):'.($isRegistered ? 'ON' : 'OFF');
+  $html = '<p align="right"><font size="-1" color="green">[更新通知〈'.link_to('一覧','@updateNotifier_mylist').'〉('.$count.'):'.($isRegistered ? 'ON' : 'OFF');
 
   if ($isRegistered)
   {
