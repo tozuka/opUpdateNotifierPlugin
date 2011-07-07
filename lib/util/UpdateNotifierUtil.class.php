@@ -128,7 +128,6 @@ class UpdateNotifierUtil {
   public function processFormPostSave($event)
   {
     $form = $event->getSubject();
-    $author = sfContext::getInstance()->getUser()->getMember()->getName();
     $i18n = sfContext::getInstance()->getI18N();
 
     switch (get_class($form))
@@ -137,7 +136,7 @@ class UpdateNotifierUtil {
         $diary = $form->getObject();
 
         $text = $diary->body;
-        $place = $author.'さんの'.$i18n->__('Diary');
+        $place = $diary->Member->getName().'さんの'.$i18n->__('Diary');
         $route = '@diary_show?id='.$diary->id;
         break;
 
@@ -146,8 +145,8 @@ class UpdateNotifierUtil {
         $diary = $diaryComment->Diary;
 
         $text = $diaryComment->body;
-        $place = $author.'さんの'.$i18n->__('Diary');
-        $route = '@diary_show?id='.$diary->id.'&comment_count='.$diary->countDiaryComments(true);
+        $place = $diary->Member->getName().'さんの'.$i18n->__('Diary');
+        $route = '@diary_show?id='.$diary->id; // comment_count付きURLだとlookupできない
         break;
 
       case 'CommunityEventForm':
@@ -189,7 +188,7 @@ class UpdateNotifierUtil {
         return;
     } 
 
-    UpdateNotifierUtil::notify_update($text, $place, $route, $author);
+    UpdateNotifierUtil::notify_update($text, $place, $route);
   }
 
   public static function getTitleForRoute($route)
